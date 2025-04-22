@@ -1,3 +1,3 @@
 # config.py
 DB_FILE = "chat_feedback.db"
-MODEL_NAME = "SakanaAI/Llama-3-Karamaru-v1"
+MODEL_NAME = "microsoft/Phi-4-mini-instruct"

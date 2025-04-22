@@ -46,8 +46,8 @@ def load_model():
 pipe = llm.load_model()
 
 # --- Streamlit アプリケーション ---
-st.title("SakanaAI/Llama-3-Karamaru-v1 Chatbot with Feedback")
-st.write("SakanaAI/Llama-3-Karamaru-v1モデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
+st.title("microsoft/Phi-4-mini-instruct Chatbot with Feedback")
+st.write("microsoft/Phi-4-mini-instruct モデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
 st.markdown("---")
 
 # --- サイドバー ---
