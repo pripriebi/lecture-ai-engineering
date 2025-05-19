@@ -17,9 +17,6 @@ DATA_PATH = os.path.join(os.path.dirname(__file__), "../data/Titanic.csv")
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "../models")
 MODEL_PATH = os.path.join(MODEL_DIR, "titanic_model.pkl")
 
-# モデルを全件取得
-ALL_MODEL = os.listdir(MODEL_DIR)
-
 
 @pytest.fixture
 def sample_data():
