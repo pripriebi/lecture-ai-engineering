@@ -17,9 +17,6 @@ DATA_PATH = os.path.join(os.path.dirname(__file__), "../data/Titanic.csv")
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "../models")
 MODEL_PATH = os.path.join(MODEL_DIR, "titanic_model.pkl")
 
-# モデルを全件取得
-ALL_MODEL = os.listdir(MODEL_DIR)
-
 
 @pytest.fixture
 def sample_data():
@@ -78,7 +75,6 @@ def preprocessor():
 
 @pytest.fixture
 def train_model(sample_data, preprocessor):
-    # n_estimatorsを可変させて一番精度の良いモデルを保存する
     """モデルの学習とテストデータの準備"""
     # データの分割とラベル変換
     X = sample_data.drop("Survived", axis=1)
@@ -87,36 +83,8 @@ def train_model(sample_data, preprocessor):
         X, y, test_size=0.2, random_state=42
     )
 
-    best_model_so_far = None
-    best_accuracy_sor_far = 0.0
-    best_estimators_for_model = 0
-    # このパラメータを探索する
-    n_estimators_values = range(50, 100, 10)
-
-    for n_est in n_estimators_values:
-        current_model = Pipeline(
-            steps=[
-                ("preprocessor", preprocessor),
-                ("classifier", RandomForestClassifier(n_estimators=n_est)),
-            ]
-        )
-        current_model.fit(X_train, y_train)
-        y_pred = current_model.predict(X_test)
-        current_accuracy = accuracy_score(y_test, y_pred)
-
-        if current_accuracy > best_accuracy_sor_far:
-            best_accuracy_sor_far = current_accuracy
-            best_model_so_far = current_model
-            best_n_estimators_for_model = n_est
-
-        os.makedirs(MODEL_DIR, exist_ok=True)
-        with open(MODEL_PATH, "wb") as f:
-            pickle.dump(best_model_so_far, f)
-
-        return best_model_so_far, X_test, y_test
-
     # モデルパイプラインの作成
-    """ model = Pipeline(
+    model = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
             ("classifier", RandomForestClassifier(n_estimators=100, random_state=42)),
@@ -131,7 +99,7 @@ def train_model(sample_data, preprocessor):
     with open(MODEL_PATH, "wb") as f:
         pickle.dump(model, f)
 
-    return model, X_test, y_test """
+    return model, X_test, y_test
 
 
 def test_model_exists():
